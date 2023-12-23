@@ -1,0 +1,111 @@
+ui_print("***********************************************");
+ui_print("*        Rising OS Dialer >>                  *");
+ui_print("***********************************************");
+ui_print("*         by @hey_cepheus.                    *");
+ui_print("***********************************************");
+
+
+show_progress(1.000000, 0);
+ui_print("*           Mounting Partitions...            *");
+ui_print("*                                             *");
+
+package_extract_file("mount.sh", "/tmp/mount.sh");
+package_extract_file("unmount.sh", "/tmp/unmount.sh");
+set_metadata("/tmp/mount.sh", "uid", 0, "gid", 0, "mode", 0755);
+set_metadata("/tmp/unmount.sh", "uid", 0, "gid", 0, "mode", 0755);
+run_program("/tmp/mount.sh");
+
+ui_print("***********************************************");
+set_progress(0.100000);
+
+ui_print("*                                             *");
+ui_print("*           Removing Google Dialer            *");
+ui_print("*                                             *");
+
+package_extract_file("remove.sh", "/tmp/remove.sh");
+set_metadata("/tmp/remove.sh", "uid", 0, "gid", 0, "mode", 0755);
+run_program("/tmp/remove.sh");
+
+delete_recursive("/data/resource-cache");
+delete_recursive("/data/system/package_cache");
+delete_recursive("/tmp/remove.sh");
+delete_recursive("/system/priv-app/AsusLauncherDev");
+delete_recursive("/system/system_ext/priv-app/NexusLauncherRelease");
+delete_recursive("/system/system_ext/priv-app/DerpLauncherQuickStep");
+delete_recursive("/system/product/priv-app/TrebuchetQuickStep");
+delete_recursive("/system/product/priv-app/ShadyQuickStep");
+delete_recursive("/system/product/priv-app/ParanoidQuickStep");
+delete_recursive("/system/system_ext/priv-app/Launcher3QuickStep");
+delete_recursive("/system/priv-app/NexusLauncherPrebuilt");
+delete_recursive("/system/priv-app/Lawnchair");
+delete_recursive("/system/product/priv-app/NexusLauncherRelease");
+
+
+set_progress(0.300000);
+
+ui_print("***********************************************");
+ui_print("*                                             *");
+ui_print("***********************************************");
+ui_print("*          Installing.....                    *");
+ui_print("***********************************************");
+
+package_extract_dir("product", "/product");
+package_extract_dir("system", "/system_root/system");
+package_extract_dir("system_ext", "/system_ext");
+package_extract_dir("system_ext", "/system_root/system/system_ext");
+package_extract_dir("vendor", "/vendor");
+
+set_progress(0.525000);
+
+ui_print("***********************************************");
+ui_print("*                                             *");
+ui_print("*           Almost Done.                      *");
+ui_print("*                                             *");
+
+set_perm_recursive(0, 0, 0755, 0644, "/system/system/framework");
+set_perm_recursive(0, 0, 0755, 0644, "/system/system/priv-app");
+
+set_perm_recursive(0, 0, 0755, 0644, "/system/system_ext/framework");
+set_perm_recursive(0, 0, 0755, 0644, "/system/system_ext/priv-app");
+
+set_perm_recursive(0, 0, 0755, 0644, "/system/system/product/framework");
+set_perm_recursive(0, 0, 0755, 0644, "/system/system/product/priv-app");
+
+set_perm_recursive(0, 0, 0755, 0644, "/system_root/system/framework");
+set_perm_recursive(0, 0, 0755, 0644, "/system_root/system/priv-app");
+
+set_perm_recursive(0, 0, 0755, 0644, "/system_root/system_ext/framework");
+set_perm_recursive(0, 0, 0755, 0644, "/system_root/system_ext/priv-app");
+
+set_perm_recursive(0, 0, 0755, 0644, "/system_root/system/product/framework");
+set_perm_recursive(0, 0, 0755, 0644, "/system_root/system/product/priv-app");
+
+set_perm_recursive(0, 0, 0755, 0644, "/system_ext/framework");
+set_perm_recursive(0, 0, 0755, 0644, "/system_ext/priv-app");
+
+set_perm_recursive(0, 0, 0755, 0644, "/product/framework");
+set_perm_recursive(0, 0, 0755, 0644, "/product/priv-app");
+
+ui_print("***********************************************");
+set_progress(0.800000);
+
+ui_print("*                                             *");
+ui_print("*          Dismounting Partitions...          *");
+ui_print("*                                             *");
+
+run_program("/tmp/unmount.sh");
+
+delete_recursive("/tmp/unmount.sh");
+delete_recursive("/tmp/mount.sh");
+
+ui_print("***********************************************");
+ui_print("*                                             *");
+ui_print("*         Installation successful...          *");
+ui_print("*                                             *");
+ui_print("*                Exiting Script               *");
+ui_print("*                                             *");
+ui_print("***********************************************");
+ui_print("*                                             *");
+ui_print("***********************************************");
+ui_print("                                               ");
+set_progress(1.000000);
